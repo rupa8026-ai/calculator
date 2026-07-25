@@ -49,7 +49,8 @@ void bubbleSort(int arr[], int n);
 void runBubbleSort();
 
 // Structure topic
-struct STUDENT {
+struct STUDENT
+{
     char name[50];
     int roll;
     float marks;
@@ -60,18 +61,21 @@ void calculateFunctionDistance();
 void displayDateInFormat();
 void displayTimeInFormat();
 
-struct Point {
+struct Point
+{
     float x;
     float y;
 };
 
-struct Date {
+struct Date
+{
     int day;
     int month;
     int year;
 };
 
-struct Time {
+struct Time
+{
     int hour;
     int minute;
     int second;
@@ -98,7 +102,8 @@ int main()
 {
     int assignment_number;
     printf("Welcome to the C assignments!\n\nPlease enter the number for the assignment you want to run (1 or 2):\n\t1. Assignment 1 \n\t2. Assignment 2 \n ");
-    if (scanf("%d", &assignment_number) != 1) return 0;
+    if (scanf("%d", &assignment_number) != 1)
+        return 0;
 
     switch (assignment_number)
     {
@@ -337,7 +342,8 @@ void printRecursionQuestions()
 
 long long factorialRecursive(int n)
 {
-    if (n <= 1) return 1;
+    if (n <= 1)
+        return 1;
     return n * factorialRecursive(n - 1);
 }
 
@@ -351,7 +357,8 @@ void runRecursiveFactorial()
 
 int gcdRecursive(int a, int b)
 {
-    if (b == 0) return a;
+    if (b == 0)
+        return a;
     return gcdRecursive(b, a % b);
 }
 
@@ -365,7 +372,8 @@ void runRecursiveGCD()
 
 int sumNaturalRecursive(int n)
 {
-    if (n <= 0) return 0;
+    if (n <= 0)
+        return 0;
     return n + sumNaturalRecursive(n - 1);
 }
 
@@ -411,19 +419,33 @@ void printArrayQuestions()
     }
 }
 
+// Helper function to print matrices in a clear mathematical visual layout | a  b |
+void displayVisualMatrix(int matrix[][20], int rows, int cols)
+{
+    for (int i = 0; i < rows; i++)
+    {
+        printf("| ");
+        for (int j = 0; j < cols; j++)
+        {
+            printf("%d\t", matrix[i][j]);
+        }
+        printf("|\n");
+    }
+}
+// Q1: Transpose Matrix Implementation
 void transpose(int matrix[][20], int n)
 {
     int trans[20][20];
     for (int i = 0; i < n; i++)
+    {
         for (int j = 0; j < n; j++)
+        {
             trans[j][i] = matrix[i][j];
-
-    printf("Transposed Matrix:\n");
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++)
-            printf("%d\t", trans[i][j]);
-        printf("\n");
+        }
     }
+
+    printf("\nTransposed Matrix Visualized:\n");
+    displayVisualMatrix(trans, n, n);
 }
 
 void runTranspose()
@@ -431,59 +453,89 @@ void runTranspose()
     int n, matrix[20][20];
     printf("Enter dimension n for (n x n) matrix: ");
     scanf("%d", &n);
+
     printf("Enter elements of matrix:\n");
     for (int i = 0; i < n; i++)
+    {
         for (int j = 0; j < n; j++)
+        {
             scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    printf("\nUser Input Matrix:\n");
+    displayVisualMatrix(matrix, n, n);
+
     transpose(matrix, n);
 }
 
 void addMatrices(int a[][20], int b[][20], int n, int m)
 {
-    printf("Sum of matrices:\n");
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            printf("%d\t", a[i][j] + b[i][j]);
+    int result[20][20];
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            result[i][j] = a[i][j] + b[i][j];
         }
-        printf("\n");
     }
-}
 
+    printf("\nSum of Matrices Result:\n");
+    displayVisualMatrix(result, n, m);
+}
+// Q2: Matrix Addition Implementation
 void runMatrixAddition()
 {
     int n, m, a[20][20], b[20][20];
-    printf("Enter rows and columns (n m): ");
+    printf("Enter dimensions n (rows) and m (cols): ");
     scanf("%d %d", &n, &m);
-    printf("Enter Matrix A:\n");
+
+    printf("Enter elements for Matrix A:\n");
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++)
             scanf("%d", &a[i][j]);
-    printf("Enter Matrix B:\n");
+
+    printf("Enter elements for Matrix B:\n");
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++)
             scanf("%d", &b[i][j]);
+
+    printf("\nMatrix A:\n");
+    displayVisualMatrix(a, n, m);
+
+    printf("\nMatrix B:\n");
+    displayVisualMatrix(b, n, m);
+
     addMatrices(a, b, n, m);
 }
 
+// Q3: Determinant Matrix Implementation
 int determinant(int a[][20], int n)
 {
     int det = 0;
-    int suba[20][20];
-    if (n == 1) return a[0][0];
-    if (n == 2) return ((a[0][0] * a[1][1]) - (a[1][0] * a[0][1]));
+    int submatrix[20][20];
 
-    for (int x = 0; x < n; x++) {
+    if (n == 1)
+        return a[0][0];
+    if (n == 2)
+        return ((a[0][0] * a[1][1]) - (a[1][0] * a[0][1]));
+
+    for (int x = 0; x < n; x++)
+    {
         int subi = 0;
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++)
+        {
             int subj = 0;
-            for (int j = 0; j < n; j++) {
-                if (j == x) continue;
-                suba[subi][subj] = a[i][j];
+            for (int j = 0; j < n; j++)
+            {
+                if (j == x)
+                    continue;
+                submatrix[subi][subj] = a[i][j];
                 subj++;
             }
             subi++;
         }
-        det += (x % 2 == 0 ? 1 : -1) * a[0][x] * determinant(suba, n - 1);
+        det += (x % 2 == 0 ? 1 : -1) * a[0][x] * determinant(submatrix, n - 1);
     }
     return det;
 }
@@ -493,46 +545,68 @@ void runDeterminant()
     int n, a[20][20];
     printf("Enter dimension n for square matrix: ");
     scanf("%d", &n);
-    printf("Enter matrix elements:\n");
+
+    printf("Enter elements of matrix:\n");
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
             scanf("%d", &a[i][j]);
-    printf("Determinant = %d\n", determinant(a, n));
+
+    printf("\nInput Matrix Visualized:\n");
+    displayVisualMatrix(a, n, n);
+
+    int det = determinant(a, n);
+    printf("\nDeterminant = %d\n", det);
 }
 
+// Q4: Array Average Calculation
 void calculateArrayAverage()
 {
     int n;
     float arr[100], sum = 0.0;
-    printf("Enter number of elements N: ");
+    printf("Enter total number of elements N: ");
     scanf("%d", &n);
-    for (int i = 0; i < n; i++) {
-        printf("Element %d: ", i + 1);
+
+    printf("Enter %d numbers:\n", n);
+    for (int i = 0; i < n; i++)
+    {
+        printf("Element [%d]: ", i + 1);
         scanf("%f", &arr[i]);
         sum += arr[i];
     }
-    printf("Average = %.2f\n", sum / n);
+
+    printf("\nVisualized Array Format:\n[ ");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%.2f ", arr[i]);
+    }
+    printf("]\n");
+
+    printf("\nAverage = %.2f\n", sum / n);
 }
 
+// Q5: Binary to Decimal Conversion
 int todecimal(char bits[20], int length)
 {
     int dec = 0;
-    for (int i = 0; i < length; i++) {
+    for (int i = 0; i < length; i++)
+    {
         if (bits[i] == '1')
             dec += pow(2, length - 1 - i);
     }
     return dec;
 }
-
 void runBinaryToDecimal()
 {
     char bits[20];
-    printf("Enter binary string: ");
+    printf("Enter binary number (bits): ");
     scanf("%s", bits);
-    int len = strlen(bits);
-    printf("Decimal Value = %d\n", todecimal(bits, len));
-}
 
+    int length = strlen(bits);
+    int decimal_val = todecimal(bits, length);
+
+    printf("\nBinary Representation: [ %s ]\n", bits);
+    printf("Decimal Equivalent = %d\n", decimal_val);
+}
 // TOPIC 4: SORTING
 void printSortingQuestions()
 {
@@ -540,18 +614,24 @@ void printSortingQuestions()
     int question_number;
     printf("Enter question number:\n\t1. %s\n", question_1);
     scanf("%d", &question_number);
-    if (question_number == 1) {
+    if (question_number == 1)
+    {
         runBubbleSort();
-    } else {
+    }
+    else
+    {
         printf("Invalid selection.\n");
     }
 }
 
 void bubbleSort(int arr[], int n)
 {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
                 int temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
@@ -566,10 +646,12 @@ void runBubbleSort()
     printf("Enter number of elements: ");
     scanf("%d", &n);
     printf("Enter elements: ");
-    for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+    for (int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
     bubbleSort(arr, n);
     printf("Sorted array in ascending order: ");
-    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
     printf("\n");
 }
 
@@ -612,7 +694,8 @@ void sortByNameAsc()
 {
     struct STUDENT s[5], temp;
     printf("Enter details for 5 students:\n");
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++)
+    {
         printf("Student %d Name: ", i + 1);
         scanf("%s", s[i].name);
         printf("Roll Number: ");
@@ -621,9 +704,12 @@ void sortByNameAsc()
         scanf("%f", &s[i].marks);
     }
 
-    for (int i = 0; i < 4; i++) {
-        for (int j = i + 1; j < 5; j++) {
-            if (strcmp(s[i].name, s[j].name) > 0) {
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = i + 1; j < 5; j++)
+        {
+            if (strcmp(s[i].name, s[j].name) > 0)
+            {
                 temp = s[i];
                 s[i] = s[j];
                 s[j] = temp;
@@ -632,7 +718,8 @@ void sortByNameAsc()
     }
 
     printf("\nSorted Records (Ascending by Name):\n");
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++)
+    {
         printf("Name: %s | Roll: %d | Marks: %.2f\n", s[i].name, s[i].roll, s[i].marks);
     }
 }
@@ -651,7 +738,7 @@ void calculateFunctionDistance()
 void displayDateInFormat()
 {
     struct Date d;
-    char *months[] = {"January", "February", "March", "April", "May", "June", 
+    char *months[] = {"January", "February", "March", "April", "May", "June",
                       "July", "August", "September", "October", "November", "December"};
     printf("Enter day month year (e.g. 29 4 2002): ");
     scanf("%d %d %d", &d.day, &d.month, &d.year);
